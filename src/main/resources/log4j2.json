@@ -1,0 +1,47 @@
+{
+	"configuration": {
+		"name": "Extractor",
+		"status": "info",
+		"properties": {
+			"property": {
+				"name": "filename",
+				"value": "/var/log/extractor/extractor.log"
+			}
+		},
+		"appenders": {
+			"Console": {
+				"name": "LogToConsole",
+				"PatternLayout": {
+					"pattern": "%d{ISO8601} [%p] (%t) %c{1}: %m%n"
+				}
+			},
+			"RollingFile": {
+				"name": "LogToRollingFile",
+				"fileName": "/var/log/extractor/extractor.log",
+				"filePattern": "/var/log/extractor/extractor-%d{MM-dd-yyyy}-%i.log.gz",
+				"append": true,
+				"bufferedIo": true,
+				"JsonTemplateLayout": {},
+				"SizeBasedTriggeringPolicy": {
+					"size": "10MB"
+				},
+				"DefaultRolloverStrategy": {
+					"Max": 14
+				}
+			}
+		},
+		"loggers": {
+			"root": {
+				"level": "info",
+				"AppenderRef": [
+					{
+						"ref": "LogToRollingFile"
+					},
+					{
+						"ref": "LogToConsole"
+					}
+				]
+			}
+		}
+	}
+}
